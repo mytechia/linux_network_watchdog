@@ -8,15 +8,16 @@ ping check fails.
 
 ----
 
-Contents: Python sources.
+##Contents: Python sources.
 
 The main.py launches both a DBUS service and a small watchdog with its own thread that used ping to check
 network availability.
 
-DBUS API:  ('com.mytechia.networkwatchdog')
-    * [method] change_target(action_target)
-    * [method] change_ip_to_check(ip_as_string)
-    * [signal] send_connection_timeout_alert(alert_data)
+DBUS API: ("com.mytechia.networkwatchdog")
+
+* [method] change_target(action_target)
+* [method] change_ip_to_check(ip_as_string)
+* [signal] send_connection_timeout_alert(alert_data)
 
 Currently there are tree action_target support: reboot, reconnect, send_alert.
 
@@ -27,7 +28,7 @@ The actions reconnect and reboot can be configured also. This way the watchdog i
 
 ----
 
-Contents: Config files.
+##Contents: Config files.
 
 This package contains all the needed files for a modern Linux distribution. It assumes systemd.
 
