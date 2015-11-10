@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=com.mytechia.networkwatchdog
+Exec=/usr/bin/network_watchdog.sh
+User=root
+SystemdService=networkwatchdog.service
