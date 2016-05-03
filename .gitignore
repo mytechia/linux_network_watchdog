@@ -2,3 +2,4 @@
 .idea/workspace.xml
 dist
 network_watchdog.egg-info
+build

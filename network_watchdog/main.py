@@ -34,13 +34,6 @@ The main loop:
 """
 
 
-from dbus.mainloop.glib import DBusGMainLoop
-
-
-if __name__ == '__main__':
-    DBusGMainLoop(set_as_default=True)
-
-
 import watchdogconfiguration
 import watchdog
 
@@ -50,7 +43,7 @@ __author__ = 'victor'
 FILE_NAME = "/tmp/watchdog_data.p"
 
 
-if __name__ == '__main__':
+def main():
     watchdogconfiguration.check_watchdog_configurations_file(FILE_NAME)
     print "Configurations checked"
     watchdog_worker = watchdog.Watchdog(FILE_NAME)

@@ -91,4 +91,7 @@ setup(
                 ('/usr/share/dbus-1/system-services', ['conf/com.mytechia.networkwatchdog.service']),
                 ('/usr/bin', ['conf/network_watchdog.sh'])],
 
+    # Unit tests
+    test_suite='nose2.collector.collector',
+
 )
