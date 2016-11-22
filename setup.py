@@ -15,12 +15,12 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='network_watchdog',
+    name='networkwatchdog',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.5.0',
+    version='0.5.1',
 
     description='A tool that checks network connection using ping',
     long_description=long_description,
@@ -73,7 +73,10 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['ping'],
+    # install_requires=['ping'],
+    # Its source has been directly included in the project, due to the necessity to avoid external dependencies
+
+
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
@@ -89,7 +92,7 @@ setup(
     data_files=[('/etc/dbus-1/system.d', ['conf/com.mytechia.networkwatchdog.conf']),
                 ('/lib/systemd/system/', ['conf/networkwatchdog.service']),
                 ('/usr/share/dbus-1/system-services', ['conf/com.mytechia.networkwatchdog.service']),
-                ('/usr/bin', ['conf/network_watchdog.sh'])],
+                ('/usr/bin', ['conf/networkwatchdog.sh'])],
 
     # Unit tests
     test_suite='nose2.collector.collector',

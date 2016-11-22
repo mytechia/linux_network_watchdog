@@ -32,7 +32,7 @@ The actions reconnect and reboot can be configured also. This way the watchdog i
 
 This package contains all the needed files for a modern Linux distribution. It assumes systemd.
 
-The main.py is wrapped in a small script: wrapped in a small script: network_watchdog.
+The main.py is wrapped in a small script: wrapped in a small script: networkwatchdog.
 
 A .service file is needed in order to launch this script: networkwatchdog.service.
 

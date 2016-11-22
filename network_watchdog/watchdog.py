@@ -39,6 +39,7 @@ import dbus
 import dbus.service
 import watchdogparameters
 import watchdogconfiguration
+import watchdoglogger
 
 __author__ = 'victor'
 
@@ -49,6 +50,7 @@ def reboot(data):
     It reboots the whole Linux system, the old way.
     :return: nothing.
     """
+    watchdoglogger.get_logger().info("Trying to reboot")
     command = "/sbin/shutdown -r now"
     import subprocess
     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
@@ -63,6 +65,7 @@ def reconnect(data):
     Uses the DBUS API offered by the WiFiConfig component.
     :return: nothing.
     """
+    watchdoglogger.get_logger().info("Trying to reconnect")
     bus = dbus.SystemBus()
     wificonfig_service = bus.get_object('com.mytechia.wificonfig', '/com/mytechia/wificonfig')
     reconnect_method = wificonfig_service.get_dbus_method('reconnect', 'com.mytechia.wificonfig')
@@ -84,15 +87,17 @@ def check_ip(ip, time_in_ms):
     """
     Returns the delay of a ping to the given ip address.
     False when there is no response.
+    :param ip: the given ip used to ping.
     :param time_in_ms: is the timeout limit.
     """
     try:
         result = ping.quiet_ping(ip, timeout=(time_in_ms / 1000.0))  # result is (percent max avrg)
         if not result:
+            watchdoglogger.get_logger().info("Checking ip failed: " + ip)
             return False
         return result[2]
     except socket.error, e:
-        print "Ping Error:", e
+        watchdoglogger.get_logger().error("Ping Error")
         return False
 
 
@@ -114,6 +119,7 @@ class Watchdog(threading.Thread):
         self.stopped = True
 
     def run(self):
+        watchdoglogger.get_logger().info("Watchdog running, using IP: " + self.config[watchdogparameters.IP_TO_CHECK])
         while not self.stopped:
             time.sleep(self.config[watchdogparameters.SLEEP_TIME_IN_S])     # wait for SLEEP_TIME_IN_S
             alive = check_ip(
@@ -177,7 +183,7 @@ class WatchdogDBus(dbus.service.Object):
         :param alert_data: currently it includes only the number of timeouts
         :return:
         """
-        print "Timeout alert sent: " + str(alert_data)
+        watchdoglogger.get_logger().info("Timeout alert sent: " + str(alert_data))
         return alert_data
 
 

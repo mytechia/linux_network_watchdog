@@ -36,20 +36,25 @@ The main loop:
 
 import watchdogconfiguration
 import watchdog
+import watchdoglogger
+import sys
+
 
 __author__ = 'victor'
 
 
-FILE_NAME = "/tmp/watchdog_data.p"
-
-
 def main():
-    watchdogconfiguration.check_watchdog_configurations_file(FILE_NAME)
-    print "Configurations checked"
-    watchdog_worker = watchdog.Watchdog(FILE_NAME)
-    print "Watchdog worker initialized"
+    if len(sys.argv) != 3:
+        print 'This module needs 2 arguments: DATA_FILE_NAME, LOG_FILE_NAME'
+    data_file_name = sys.argv[1]
+    log_file_name = sys.argv[2]
+    logger = watchdoglogger.initialize_logger(log_file_name)
+    watchdogconfiguration.check_watchdog_configurations_file(data_file_name)
+    logger.info("Configurations checked")
+    watchdog_worker = watchdog.Watchdog(data_file_name)
+    logger.info("Watchdog worker initialized")
     watchdog_service = watchdog.WatchdogDBus(watchdog_worker)
     watchdog_worker.register_send_event_callback(watchdog_service.send_connection_timeout_alert)
-    print "Watchdog DBus service initialized"
+    logger.info("Watchdog DBus service initialized")
     watchdog_worker.start()
-    print "Watchdog worker launched"
+    logger.info("Watchdog worker launched")

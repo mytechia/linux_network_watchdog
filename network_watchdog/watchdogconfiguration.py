@@ -31,6 +31,7 @@ The data has a simple structure a map of properties:
 
 import pickle
 import os.path
+import watchdoglogger
 
 import watchdogparameters
 
@@ -43,6 +44,7 @@ def load_watchdog_configuration_from(path):
     :param path: full path for the configuration data file.
     :return: the watchdog configuration data, as a map.
     """
+    watchdoglogger.get_logger().info("Configurations bleble")
     return pickle.load(open(path, "rb"))
 
 

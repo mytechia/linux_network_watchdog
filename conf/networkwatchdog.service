@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/network_watchdog.sh
+ExecStart=/usr/bin/networkwatchdog.sh
 StandardOutput=syslog
 StandardError=syslog
 
