@@ -44,7 +44,6 @@ def load_watchdog_configuration_from(path):
     :param path: full path for the configuration data file.
     :return: the watchdog configuration data, as a map.
     """
-    watchdoglogger.get_logger().info("Configurations bleble")
     return pickle.load(open(path, "rb"))
 
 
